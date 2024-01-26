@@ -85,23 +85,24 @@ import Models_3D
 # Import data to create joint-site frequency spectrum
 #===========================================================================
 
-#**************
-snps = "/Users/portik/Documents/GitHub/Testing_version/dadi_pipeline/Three_Population_Pipeline/Example_Data/dadi_3pops_CVLS_CVLN_Cross_snps.txt"
+# #**************
+# snps = "/Users/portik/Documents/GitHub/Testing_version/dadi_pipeline/Three_Population_Pipeline/Example_Data/dadi_3pops_CVLS_CVLN_Cross_snps.txt"
 
-#Create python dictionary from snps file
-dd = dadi.Misc.make_data_dict(snps)
+# #Create python dictionary from snps file
+# dd = dadi.Misc.make_data_dict(snps)
 
 #**************
 #pop_ids is a list which should match the populations headers of your SNPs file columns
-pop_ids=['CVLS','CVLN','Cross']
+pop_ids=['marion_gazella','marion_tropicalis','gough_tropicalis']
 
-#**************
-#projection sizes, in ALLELES not individuals
-proj = [14,30,18]
+# #**************
+# #projection sizes, in ALLELES not individuals
+# proj = [14,30,18]
 
 #Convert this dictionary into folded AFS object
 #[polarized = False] creates folded spectrum object
-fs = dadi.Spectrum.from_data_dict(dd, pop_ids=pop_ids, projections = proj, polarized = False)
+# fs = dadi.Spectrum.from_data_dict(dd, pop_ids=pop_ids, projections = proj, polarized = False)
+fs = dadi.Spectrum.from_file("/scratch/mskset001/Yinhla/dadi_results/3D/marion_gazella-marion_tropicalis-gough_tropicalis_ancestralForsteri.winsfs.dadi")
 
 #print some useful information about the afs or jsfs
 print("\n\n============================================================================")
@@ -180,7 +181,7 @@ folds = [3,2,2,1]
 
 #**************
 #Indicate whether your frequency spectrum object is folded (True) or unfolded (False)
-fs_folded = True
+fs_folded = False
 
 
 '''
@@ -246,29 +247,29 @@ This second set of models were developed for the following publication:
 
 ############# Models with simultaneous population splitting 
 
-# Simultaneous split into three populations, no migration.
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_no_mig", Models_3D.sim_split_no_mig, rounds, 4, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, T1")
+# # Simultaneous split into three populations, no migration.
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_no_mig", Models_3D.sim_split_no_mig, rounds, 4, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, T1")
 
-# Simultaneous split into three populations, no migration, size change.
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_no_mig_size", Models_3D.sim_split_no_mig_size, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1a, nu2a, nu3a, nu1b, nu2b, nu3b, T1, T2")
+# # Simultaneous split into three populations, no migration, size change.
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_no_mig_size", Models_3D.sim_split_no_mig_size, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1a, nu2a, nu3a, nu1b, nu2b, nu3b, T1, T2")
 
-# Simultaneous split into three populations, symmetric migration between all populations (1<->2, 2<->3, and 1<->3).
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_sym_mig_all", Models_3D.sim_split_sym_mig_all, rounds, 7, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, m3, T1")
+# # Simultaneous split into three populations, symmetric migration between all populations (1<->2, 2<->3, and 1<->3).
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_sym_mig_all", Models_3D.sim_split_sym_mig_all, rounds, 7, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, m3, T1")
 
-# Simultaneous split into three populations, symmetric migration between 'adjacent' populations (1<->2, 2<->3, but not 1<->3).
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_sym_mig_adjacent", Models_3D.sim_split_sym_mig_adjacent, rounds, 6, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, T1")
+# # Simultaneous split into three populations, symmetric migration between 'adjacent' populations (1<->2, 2<->3, but not 1<->3).
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_sym_mig_adjacent", Models_3D.sim_split_sym_mig_adjacent, rounds, 6, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, T1")
 
-# Simultaneous split into three populations, secondary contact between all populations (1<->2, 2<->3, and 1<->3).
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_sym_mig_all", Models_3D.sim_split_refugia_sym_mig_all, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, m3, T1, T2")
+# # Simultaneous split into three populations, secondary contact between all populations (1<->2, 2<->3, and 1<->3).
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_sym_mig_all", Models_3D.sim_split_refugia_sym_mig_all, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, m3, T1, T2")
 
-# Simultaneous split into three populations, secondary contact between 'adjacent' populations (1<->2, 2<->3, but not 1<->3).
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_sym_mig_adjacent", Models_3D.sim_split_refugia_sym_mig_adjacent, rounds, 7, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, T1, T2")
+# # Simultaneous split into three populations, secondary contact between 'adjacent' populations (1<->2, 2<->3, but not 1<->3).
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_sym_mig_adjacent", Models_3D.sim_split_refugia_sym_mig_adjacent, rounds, 7, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m2, T1, T2")
 
 
 ############# Models with extra size change variation
@@ -302,57 +303,57 @@ This third set of models were developed for the following publication:
 
 ############# Divergence with gene flow variations (mostly with gene flow centered on pop3)
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_2_var_sym", Models_3D.refugia_adj_2_var_sym, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, m2, m3, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_2_var_sym", Models_3D.refugia_adj_2_var_sym, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, m2, m3, T1, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_2_var_uni", Models_3D.refugia_adj_2_var_uni, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, m32, m31, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_2_var_uni", Models_3D.refugia_adj_2_var_uni, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, m32, m31, T1, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_3_var_sym", Models_3D.refugia_adj_3_var_sym, rounds, 10, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m2, m3, T1a, T1b, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_3_var_sym", Models_3D.refugia_adj_3_var_sym, rounds, 10, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m2, m3, T1a, T1b, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_3_var_uni", Models_3D.refugia_adj_3_var_uni, rounds, 10, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m32, m31, T1a, T1b, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "refugia_adj_3_var_uni", Models_3D.refugia_adj_3_var_uni, rounds, 10, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m32, m31, T1a, T1b, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_sym_mig_adjacent_var1", Models_3D.split_sym_mig_adjacent_var1, rounds, 9, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m2, m3, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_sym_mig_adjacent_var1", Models_3D.split_sym_mig_adjacent_var1, rounds, 9, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m2, m3, T1, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_uni_mig_adjacent_var1", Models_3D.split_uni_mig_adjacent_var1, rounds, 9, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m32, m31, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_uni_mig_adjacent_var1", Models_3D.split_uni_mig_adjacent_var1, rounds, 9, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m32, m31, T1, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_sym_mig_adjacent_var2", Models_3D.split_sym_mig_adjacent_var2, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m3, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_sym_mig_adjacent_var2", Models_3D.split_sym_mig_adjacent_var2, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m3, T1, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_uni_mig_adjacent_var2", Models_3D.split_uni_mig_adjacent_var2, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m31, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "split_uni_mig_adjacent_var2", Models_3D.split_uni_mig_adjacent_var2, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nuA, nu2, nu3, mA, m31, T1, T2")
 
-############# Simultaneous splitting variations
+# ############# Simultaneous splitting variations
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_sym_mig_adjacent_var", Models_3D.sim_split_sym_mig_adjacent_var, rounds, 6, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m2, m3, T1")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_sym_mig_adjacent_var", Models_3D.sim_split_sym_mig_adjacent_var, rounds, 6, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m2, m3, T1")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_uni_mig_adjacent_var", Models_3D.sim_split_uni_mig_adjacent_var, rounds, 6, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m32, m31, T1")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_uni_mig_adjacent_var", Models_3D.sim_split_uni_mig_adjacent_var, rounds, 6, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m32, m31, T1")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_sym_mig_adjacent_var", Models_3D.sim_split_refugia_sym_mig_adjacent_var, rounds, 7, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m2, m3, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_sym_mig_adjacent_var", Models_3D.sim_split_refugia_sym_mig_adjacent_var, rounds, 7, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m2, m3, T1, T2")
 
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_uni_mig_adjacent_var", Models_3D.sim_split_refugia_uni_mig_adjacent_var, rounds, 7, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m32, m31, T1, T2")
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "sim_split_refugia_uni_mig_adjacent_var", Models_3D.sim_split_refugia_uni_mig_adjacent_var, rounds, 7, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m32, m31, T1, T2")
 
 ############# Admixed ("hybrid") origins models
 
-up = [20, 20, 20, 10, 10, 0.999]
-ps = [1, 1, 1, 1, 1, 0.5]
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "admix_origin_no_mig", Models_3D.admix_origin_no_mig, rounds, 6, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, T1, T2, f", in_upper=up, in_params=ps)
+# up = [20, 20, 20, 10, 10, 0.999]
+# ps = [1, 1, 1, 1, 1, 0.5]
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "admix_origin_no_mig", Models_3D.admix_origin_no_mig, rounds, 6, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, T1, T2, f", in_upper=up, in_params=ps)
 
-up = [20, 20, 20, 20, 20, 10, 10, 0.999]
-ps = [1, 1, 1, 1, 1, 1, 1, 0.5]
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "admix_origin_sym_mig_adj", Models_3D.admix_origin_sym_mig_adj, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m3, T1, T2, f", in_upper=up, in_params=ps)
+# up = [20, 20, 20, 20, 20, 10, 10, 0.999]
+# ps = [1, 1, 1, 1, 1, 1, 1, 0.5]
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "admix_origin_sym_mig_adj", Models_3D.admix_origin_sym_mig_adj, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m1, m3, T1, T2, f", in_upper=up, in_params=ps)
 
-up = [20, 20, 20, 20, 20, 10, 10, 0.999]
-ps = [1, 1, 1, 1, 1, 1, 1, 0.5]
-Optimize_Functions.Optimize_Routine(fs, pts, prefix, "admix_origin_uni_mig_adj", Models_3D.admix_origin_uni_mig_adj, rounds, 8, fs_folded=fs_folded,
-                                        reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m32, m31, T1, T2, f", in_upper=up, in_params=ps)
+# up = [20, 20, 20, 20, 20, 10, 10, 0.999]
+# ps = [1, 1, 1, 1, 1, 1, 1, 0.5]
+# Optimize_Functions.Optimize_Routine(fs, pts, prefix, "admix_origin_uni_mig_adj", Models_3D.admix_origin_uni_mig_adj, rounds, 8, fs_folded=fs_folded,
+#                                         reps=reps, maxiters=maxiters, folds=folds, param_labels = "nu1, nu2, nu3, m32, m31, T1, T2, f", in_upper=up, in_params=ps)

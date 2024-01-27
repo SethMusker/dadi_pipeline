@@ -107,7 +107,7 @@ fs = dadi.Spectrum.from_file("/scratch/mskset001/Yinhla/dadi_results/3D/marion_g
 #print some useful information about the afs or jsfs
 print("\n\n============================================================================")
 print("\nData for site frequency spectrum:\n")
-print("Projection: {}".format(proj))
+# print("Projection: {}".format(proj))
 print("Sample sizes: {}".format(fs.sample_sizes))
 print("Sum of SFS: {}".format(numpy.around(fs.S(), 2)))
 print("\n============================================================================\n")
@@ -167,8 +167,8 @@ prefix = "_".join(pop_ids)
 
 #**************
 #make sure to define your extrapolation grid size (based on your projections)
-pts = [50,60,70]
-
+# pts = [50,60,70]
+pts = [80,90,100]
 #**************
 #Set the number of rounds here
 rounds = 4
